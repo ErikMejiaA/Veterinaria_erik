@@ -15,6 +15,22 @@ public class EspecieRepository : GenericRepositoryB<Especie>, IEspecieInterface
         _context = context;
     }
 
+     public override async Task<IEnumerable<Especie>> GetAllAsync()
+    {
+        return await _context.Set<Especie>()
+        .Include(p => p.Mascotas)
+        .Include(p => p.Razas)
+        .ToListAsync();
+    }
+
+    public override async Task<Especie> GetByIdAsync(int id)
+    {
+        return await _context.Set<Especie>()
+        .Include(p => p.Mascotas)
+        .Include(p => p.Razas)
+        .FirstOrDefaultAsync(p => p.IdCodigo == id);
+    }
+
     public override async Task<(int totalRegistros, IEnumerable<Especie> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
     {
         var query = _context.Especies as IQueryable<Especie>;
@@ -26,6 +42,8 @@ public class EspecieRepository : GenericRepositoryB<Especie>, IEspecieInterface
 
         var totalRegistros = await query.CountAsync();
         var registros = await query
+                                .Include(p => p.Mascotas)
+                                .Include(p => p.Razas)
                                 .Skip((pageIndex - 1) * pageSize)
                                 .Take(pageSize)
                                 .ToListAsync();

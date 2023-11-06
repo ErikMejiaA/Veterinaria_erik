@@ -13,5 +13,7 @@ public class DetalleMovimientoRepository : GenericRepositoryB<DetalleMovimiento>
     {
         _context = context;
     }
+
+    
     
 }

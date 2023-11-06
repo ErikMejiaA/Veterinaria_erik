@@ -13,6 +13,20 @@ public class CitaRepository : GenericRepositoryB<Cita>, ICitaInterface
         _context = context;
     }
 
+    public override async Task<IEnumerable<Cita>> GetAllAsync()
+    {
+        return await _context.Set<Cita>()
+        .Include(p => p.TratamientosMedicos)
+        .ToListAsync();
+    }
+
+    public override async Task<Cita> GetByIdAsync(int id)
+    {
+        return await _context.Set<Cita>()
+        .Include(p => p.TratamientosMedicos)
+        .FirstOrDefaultAsync(p => p.IdCodigo == id);
+    }
+    
     public override async Task<(int totalRegistros, IEnumerable<Cita> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
     {
         var query = _context.Citas as IQueryable<Cita>;
@@ -24,6 +38,7 @@ public class CitaRepository : GenericRepositoryB<Cita>, ICitaInterface
 
         var totalRegistros = await query.CountAsync();
         var registros = await query
+                                .Include(p => p.TratamientosMedicos)
                                 .Skip((pageIndex - 1) * pageSize)
                                 .Take(pageSize)
                                 .ToListAsync();

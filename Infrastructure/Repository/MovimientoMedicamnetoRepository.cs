@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
 
@@ -14,5 +15,32 @@ public class MovimientoMedicamnetoRepository : GenericRepositoryB<MovimientoMedi
         _context = context;
     }
 
+    public override async Task<IEnumerable<MovimientoMedicamento>> GetAllAsync()
+    {
+        return await _context.Set<MovimientoMedicamento>()
+        .Include(p => p.DetallesMovimientos)
+        .ToListAsync();
+    }
+
+    public override async Task<MovimientoMedicamento> GetByIdAsync(int id)
+    {
+        return await _context.Set<MovimientoMedicamento>()
+        .Include(p => p.DetallesMovimientos)
+        .FirstOrDefaultAsync(p => p.IdCodigo == id);
+    }
+
+    public override async Task<(int totalRegistros, IEnumerable<MovimientoMedicamento> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.MovimientoMedicamentos as IQueryable<MovimientoMedicamento>;
+
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                .Include(p => p.DetallesMovimientos)
+                                .Skip((pageIndex - 1) * pageSize)
+                                .Take(pageSize)
+                                .ToListAsync();
+
+        return (totalRegistros, registros);
+    }
     
 }
