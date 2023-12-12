@@ -43,6 +43,7 @@ public class MappingProfiles : Profile
 
         CreateMap<Mascota, MascotaDto>().ReverseMap();
         CreateMap<Mascota, MascotaConsultaDto>().ReverseMap();
+        CreateMap<Mascota, LstaMascotasPropietarioRazaDto>().ReverseMap();
 
         CreateMap<Medicamento, MedicamentoDto>().ReverseMap();
         CreateMap<Medicamento, MedicamentoConsultaDto>().ReverseMap();
@@ -54,8 +55,10 @@ public class MappingProfiles : Profile
 
         CreateMap<Propietario, PropietarioDto>().ReverseMap();
         CreateMap<Propietario, PropietarioXmascotaDto>().ReverseMap();
+        CreateMap<Propietario, PropietarioMascotaDto>().ReverseMap();
 
         CreateMap<Proveedor, ProveedorDto>().ReverseMap();
+        CreateMap<Proveedor, ListaProveedoresDto>().ReverseMap();
 
         CreateMap<Raza, RazaDto>().ReverseMap();
 

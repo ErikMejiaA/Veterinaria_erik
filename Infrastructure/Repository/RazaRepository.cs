@@ -48,5 +48,21 @@ public class RazaRepository : GenericRepositoryB<Raza>, IRazaInterface
         return (totalRegistros, registros);
     }
 
-    
+    public IEnumerable<object> GetAllRazasCantidadMascotas()
+    {
+        List<object> lstRazaXcantidadMascotas = new ();
+        var lstRazas = _context.Set<Raza>()
+        .Include(p => p.Mascotas)
+        .ToList();
+
+        foreach (var raza in lstRazas) {
+            lstRazaXcantidadMascotas.Add( new {
+                IdCodigoRaza = raza.IdCodigo,
+                NombreRaza = raza.Nombre,
+                CantidadMascotas = raza.Mascotas.Count()
+            });
+        }
+
+        return lstRazaXcantidadMascotas;
+    }
 }

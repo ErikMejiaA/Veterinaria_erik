@@ -59,4 +59,29 @@ http://localhost:5000/api/Veterinario/Paginacion
 17. MovimientoMedicamento
 http://localhost:5000/api/MovimientoMedicamento/Paginacion
 
-**Nota: No se realizo ninguna consulta**
+**Las consulats estan en dos controladores que son ConsultasGrupoAController y ConsultasGrupoBController**
+**los Endpoint de las consultas no tiene autorizacion o autenticacion y no cuentan con versionado**
+
+**CONSULTAS GRUPO A**
+
+1. Crear un consulta que permita visualizar los veterinarios cuya especialidad sea Cirujano
+    vascular.
+2. Listar los medicamentos que pertenezcan a el laboratorio Genfar
+3. Mostrar las mascotas que se encuentren registradas cuya especie sea felina.
+4. Listar los propietarios y sus mascotas.
+5. Listar los medicamentos que tenga un precio de venta mayor a 50000
+6. Listar las mascotas que fueron atendidas por motivo de vacunacion en el primer trimestre
+    del 2023
+
+**CONSULTAS GRUPO B**
+
+1. Listar todas las mascotas agrupadas por especie.
+2. Listar todos los movimientos de medicamentos y el valor total de cada movimiento.
+3. Listar las mascotas que fueron atendidas por un determinado veterinario.
+4. Listar los proveedores que me venden un determinado medicamento.
+5. Listar las mascotas y sus propietarios cuya raza sea Golden Retriver
+6. Listar la cantidad de mascotas que pertenecen a una raza a una raza. **Nota:** Se debe mostrar
+    una lista de las razas y la cantidad de mascotas que pertenecen a la raza.
+    
+
+TODAS LAS CONSULTAS DE LOS **GRUPO A** Y **GRUPO B** FUERON TERMINADAS 

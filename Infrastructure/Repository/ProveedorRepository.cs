@@ -48,5 +48,16 @@ public class ProveedorRepository : GenericRepositoryB<Proveedor>, IProveedorInte
         return (totalRegistros, registros);
     }
 
-    
+    public IEnumerable<Proveedor> GetListaProveedoresMedicamento(string medicamentoo)
+    {
+        var lstMedicamentos = _context.Set<Medicamento>()
+        .Where(p => p.Nombre.ToLower() == medicamentoo.ToLower())
+        .First();
+        
+        var lstProveedorMedi = _context.Set<Proveedor>()
+        .Where(p => p.MedicamentosProveedores.Any(p => p.Id_medicamento == lstMedicamentos.IdCodigo))
+        .ToList();
+
+        return lstProveedorMedi;
+    }
 }

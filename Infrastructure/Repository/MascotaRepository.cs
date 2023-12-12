@@ -98,4 +98,18 @@ public class MascotaRepository : GenericRepositoryB<Mascota>, IMascotaInterface
 
         return mascotas;
     }
+
+    public IEnumerable<Mascota> GetLtsMascotasPropietarioRaza(string nombreRaza)
+    {
+        var raza = _context.Set<Raza>()
+        .Where(p => p.Nombre.ToLower() == nombreRaza.ToLower())
+        .First();
+
+        var lstMascotaPropietario = _context.Set<Mascota>()
+        .Include(p => p.Propietario)
+        .Where(p => p.Id_raza == raza.IdCodigo)
+        .ToList();
+
+        return lstMascotaPropietario;
+    }
 }

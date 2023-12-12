@@ -8,5 +8,6 @@ public interface IMascotaInterface :  IGenericInterfaceB<Mascota>
     Task<IEnumerable<Mascota>> GetAllMascotasPorVacunacion(string motivo);
     Task<IEnumerable<Especie>> GetAllMascotasEspecies();
     IEnumerable<Mascota> GetAllMascotasPorVeterinario(string Veterinario);
+    IEnumerable<Mascota> GetLtsMascotasPropietarioRaza(string nombreRaza);
         
 }

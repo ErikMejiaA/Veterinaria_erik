@@ -42,5 +42,31 @@ public class MovimientoMedicamnetoRepository : GenericRepositoryB<MovimientoMedi
 
         return (totalRegistros, registros);
     }
-    
+
+    public IEnumerable<object> ListaValorTotalMovimientoMedicamentos()
+    {
+        List<object> lstMoviMedicamentoPrecio = new ();
+        var lstMedicamentos = _context.Set<Medicamento>()
+        .ToList();
+        var lstMedicametosMovi = _context.Set<MovimientoMedicamento>()
+        .ToList();
+
+        foreach (var lstMedic in lstMedicamentos)
+        {
+            foreach (var lstMoviMedi in lstMedicametosMovi)
+            {
+                if (lstMoviMedi.Id_medicamento == lstMedic.IdCodigo) {
+                    lstMoviMedicamentoPrecio.Add(new {
+                        IdCodigo = lstMoviMedi.IdCodigo,
+                        Medicamento = lstMedic.Nombre,
+                        Cantidad = lstMoviMedi.Cantidad,
+                        Fecha = lstMoviMedi.Fecha,
+                        PrecioTotalMovi = (lstMoviMedi.Cantidad * lstMedic.Precio)
+                    });
+                }   
+            }
+        }
+
+        return lstMoviMedicamentoPrecio;
+    }
 }
